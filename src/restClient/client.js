@@ -74,6 +74,10 @@ module.exports = {
     return this.genericRequest(Endpoints.CREATE_REACTION(channelID, messageID, emoji));
   },
 
+  deleteReaction (channelID, messageID, emoji, userID) {
+    return this.genericRequest(Endpoints.DELETE_REACTION(channelID, messageID, emoji, userID));
+  },
+
   getGateway () {
     return this.genericRequest(Endpoints.BOT_GATEWAY());
   },
