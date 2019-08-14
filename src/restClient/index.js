@@ -1,3 +1,1 @@
-const client = require('./client');
-const extended = require('./extended');
-module.exports = Object.assign({}, client, extended);
+module.exports = require('./client');
