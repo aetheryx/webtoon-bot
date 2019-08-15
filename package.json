@@ -1,7 +1,7 @@
 {
   "name": "webtoon-bot",
   "version": "1.0.0",
-  "description": "A Discord bot that allows users to interact with https://webtoon.com",
+  "description": "A Discord bot that allows users to interact with https://webtoons.com",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,7 @@
   "keywords": [
     "discord",
     "comics",
-    "webtoon.com"
+    "webtoons.com"
   ],
   "author": "aetheryx",
   "license": "GPLv3",
