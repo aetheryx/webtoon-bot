@@ -26,5 +26,9 @@
     "lighttp": "^1.2.0",
     "mongodb": "^3.3.0-beta2",
     "ws": "^7.1.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.1.0"
   }
 }
