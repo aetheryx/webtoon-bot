@@ -23,4 +23,4 @@ module.exports = async (query) => {
     likes: node.children[1].children[2].children[1].children[0].content,
     genre: node.children[2].children[0].content
   }));
-}
+};

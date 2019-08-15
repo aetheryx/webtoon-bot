@@ -19,17 +19,17 @@ module.exports = class Client extends EventEmitter {
     const gateway = await restClient.getGateway();
     const ws = this.#ws = new WebSocket(`${gateway.url}?${GATEWAY_OPTIONS}`);
 
-    ws.on('message', (raw) =>
+    ws.on('message', (raw) => (
       this.handleData(JSON.parse(raw))
-    );
+    ));
 
-    ws.on('error', (err) =>
+    ws.on('error', (err) => (
       super.emit('ws:error', err)
-    );
+    ));
 
-    ws.on('close', (code) =>
+    ws.on('close', (code) => (
       super.emit('ws:close', code)
-    );
+    ));
   }
 
   async handleData (data) {
@@ -79,7 +79,7 @@ module.exports = class Client extends EventEmitter {
         } else {
           resolve();
         }
-      })
+      });
     });
   }
 
@@ -117,10 +117,10 @@ module.exports = class Client extends EventEmitter {
     clearInterval(this.#heartbeatInterval);
     this.#ws.terminate();
 
-    this.#ws = undefined;
-    this.#lastHeartbeatAck = undefined;
-    this.#lastHeartbeat = undefined;
-    this.#heartbeatInterval = undefined;
+    this.#ws = void 0;
+    this.#lastHeartbeatAck = void 0;
+    this.#lastHeartbeat = void 0;
+    this.#heartbeatInterval = void 0;
   }
 
   async heartbeat (requested) {
@@ -140,4 +140,4 @@ module.exports = class Client extends EventEmitter {
     this.heartbeat();
     this.#heartbeatInterval = setInterval(this.heartbeat.bind(this), interval);
   }
-}
+};

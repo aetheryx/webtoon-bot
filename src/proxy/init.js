@@ -27,6 +27,6 @@ const server = createServer((req, res) => {
 });
 
 module.exports = () =>
-  server.listen(process.env.PROXY_PORT, () =>
+  server.listen(process.env.PROXY_PORT, () => (
     console.log('Proxy server listening to', process.env.PROXY_PORT)
-  );
+  ));

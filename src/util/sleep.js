@@ -1,4 +1,4 @@
 module.exports = (delay) =>
-  new Promise(resolve =>
+  new Promise(resolve => (
     setTimeout(resolve, delay)
-  );
+  ));

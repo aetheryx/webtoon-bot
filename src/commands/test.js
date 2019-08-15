@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const { generateProxyURL } = require('@webtoon-bot/proxy');
 const { comics } = require('@webtoon-bot/db');
 

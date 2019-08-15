@@ -2,7 +2,7 @@ const path = require('path');
 const config = require('../../config.json');
 const Module = require('module');
 
-exports.init = function initConfig () {
+exports.init = function init () {
   Object.assign(process.env, config);
 
   process.env.NODE_PATH = path.resolve(__dirname, '..', 'global');

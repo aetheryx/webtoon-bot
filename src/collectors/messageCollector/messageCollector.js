@@ -11,8 +11,8 @@ module.exports = {
       const key = this.generateKey(msg);
 
       const collector = {
-        fulfill (msg = null) {
-          resolve(msg);
+        fulfill (message = null) {
+          resolve(message);
           messageCollectors.delete(key);
         }
       };

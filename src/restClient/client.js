@@ -21,7 +21,7 @@ module.exports = {
     return req
       .header('Content-Type', 'application/json')
       .header('Authorization', process.env.BOT_TOKEN)
-      .then(data => data.body);
+      .then(res => res.body);
   },
 
   _parseContent (input) {
@@ -43,17 +43,16 @@ module.exports = {
           data,
           contentType: 'application/json'
         },
-          ...input.files.map(file => ({
-            name: 'file',
-            data: file.content,
-            filename: file.name,
-            contentType: file.contentType || 'image/png'
-          })),
-        ]
+        ...input.files.map(file => ({
+          name: 'file',
+          data: file.content,
+          filename: file.name,
+          contentType: file.contentType || 'image/png'
+        })) ]
       };
-    } else {
-      return { data };
     }
+
+    return { data };
   },
 
   createMessage (channelID, message) {
@@ -68,6 +67,14 @@ module.exports = {
       Endpoints.EDIT_MESSAGE(channelID, messageID),
       this._parseContent(newContent)
     );
+  },
+
+  deleteMessage (channelID, messageID) {
+    return this.genericRequest(Endpoints.DELETE_MESSAGE(channelID, messageID));
+  },
+
+  bulkDeleteMessages (channelID, messages) {
+    return this.genericRequest(Endpoints.BULK_DELETE(channelID), { data: { messages } });
   },
 
   createReaction (channelID, messageID, emoji) {

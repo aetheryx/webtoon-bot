@@ -2,7 +2,6 @@ const scraper = require('@webtoon-bot/scraper');
 const restClient = require('@webtoon-bot/restClient');
 const { createPaginatedMenu } = require('@webtoon-bot/util');
 const { generateProxyURL } = require('@webtoon-bot/proxy');
-const lighttp = require('lighttp');
 
 module.exports = {
   triggers: [ 'search' ],
@@ -16,7 +15,7 @@ module.exports = {
     const results = await scraper.search(query);
     if (results.length === 0) {
       yield 'I was unable to find any comics with that query.';
-    };
+    }
 
     createPaginatedMenu({
       msg,
@@ -43,4 +42,4 @@ module.exports = {
       }))
     });
   }
-}
+};
