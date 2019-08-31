@@ -1,10 +1,19 @@
-const Endpoints = require('./Endpoints');
+const Endpoints = require('./Endpoints/Endpoints');
 const lighttp = require('lighttp');
 const stripPings = require('@webtoon-bot/util/stripPings');
+const Ratelimiter = require('./Ratelimiter/Ratelimiter');
 
 module.exports = {
-  genericRequest ([ method, endpoint ], { data, files, queryParams = {} } = {}) {
-    const req = lighttp[method.toLowerCase()](Endpoints.BASE + endpoint);
+  ratelimiter: new Ratelimiter(),
+
+  async genericRequest (
+    { method, endpoint, abstract }, 
+    { data, files, queryParams = {} } = {}
+  ) {
+    const req = lighttp[method.toLowerCase()](Endpoints.BASE + endpoint)
+      .header('Content-Type', 'application/json')
+      .header('X-Ratelimit-Precision', 'millisecond')
+      .header('Authorization', process.env.BOT_TOKEN);
 
     if (data) {
       req.send(data);
@@ -18,9 +27,7 @@ module.exports = {
       req.query(paramKey, paramVal);
     }
 
-    return req
-      .header('Content-Type', 'application/json')
-      .header('Authorization', process.env.BOT_TOKEN)
+    return this.ratelimiter.process(abstract, req)
       .then(res => res.body);
   },
 
@@ -70,26 +77,39 @@ module.exports = {
   },
 
   deleteMessage (channelID, messageID) {
-    return this.genericRequest(Endpoints.DELETE_MESSAGE(channelID, messageID));
+    return this.genericRequest(
+      Endpoints.DELETE_MESSAGE(channelID, messageID)
+    );
   },
 
   bulkDeleteMessages (channelID, messages) {
-    return this.genericRequest(Endpoints.BULK_DELETE(channelID), { data: { messages } });
+    return this.genericRequest(
+      Endpoints.BULK_DELETE_MESSAGES(channelID),
+      { data: { messages } }
+    );
   },
 
   createReaction (channelID, messageID, emoji) {
-    return this.genericRequest(Endpoints.CREATE_REACTION(channelID, messageID, emoji));
+    return this.genericRequest(
+      Endpoints.CREATE_REACTION(channelID, messageID, emoji)
+    );
   },
 
   deleteReaction (channelID, messageID, emoji, userID) {
-    return this.genericRequest(Endpoints.DELETE_REACTION(channelID, messageID, emoji, userID));
+    return this.genericRequest(
+      Endpoints.DELETE_REACTION(channelID, messageID, emoji, userID)
+    );
   },
 
   getGateway () {
-    return this.genericRequest(Endpoints.BOT_GATEWAY());
+    return this.genericRequest(
+      Endpoints.BOT_GATEWAY()
+    );
   },
 
   triggerTyping (id) {
-    return this.genericRequest(Endpoints.TRIGGER_TYPING(id));
+    return this.genericRequest(
+      Endpoints.TRIGGER_TYPING(id)
+    );
   }
 };
