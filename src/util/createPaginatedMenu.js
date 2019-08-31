@@ -1,6 +1,9 @@
 const { reactionCollector } = require('@webtoon-bot/collectors');
-const restClient = require('@webtoon-bot/restClient');
 const sleep = require('./sleep');
+let restClient; // lazy loaded because of cyclic dep
+setImmediate(() => (
+  restClient = require('@webtoon-bot/restClient')
+));
 
 const Emojis = {
   PREV: '⬅',
@@ -18,9 +21,7 @@ module.exports = async function createPaginatedMenu ({ msg, data }) {
   const collector = reactionCollector.createCollector({ messageID: message.id, userID: msg.author.id });
 
   await restClient.createReaction(msg.channel_id, message.id, Emojis.PREV);
-  await sleep(250);
   await restClient.createReaction(msg.channel_id, message.id, Emojis.NEXT);
-  await sleep(250);
   restClient.createReaction(msg.channel_id, message.id, Emojis.STOP);
 
   const update = (newContent) => {
