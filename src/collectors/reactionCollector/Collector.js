@@ -18,20 +18,24 @@ module.exports = class Collector extends EventEmitter {
     this.checkExpiry();
   }
 
+  process (reaction) {
+    this.checkExpiry();
+    super.emit('collected', reaction);
+  }
+
+  destroy () {
+    super.emit('destroyed');
+    super.removeAllListeners();
+    reactionCollectors.delete(this.#key);
+  }
+
   checkExpiry () {
     this.#expiryDate = Date.now() + this.#expiry;
 
     setTimeout(() => {
       if (Date.now() > this.#expiryDate) {
-        super.emit('destroyed');
-        super.removeAllListeners();
-        reactionCollectors.delete(this.#key);
+        this.destroy();
       }
     }, this.#expiry);
-  }
-
-  process (reaction) {
-    this.checkExpiry();
-    super.emit('collected', reaction);
   }
 };
