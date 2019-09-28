@@ -72,13 +72,6 @@
     "no-invalid-this": [ "error" ],
     "no-lone-blocks": [ "error" ],
     "no-loop-func": [ "error" ],
-    "no-multi-spaces": [ "error", {
-      "exceptions": {
-        "Property": true,
-        "BinaryExpression": false,
-        "VariableDeclarator": true
-      }
-    }],
     "no-multi-str": [ "error" ],
     "no-new-func": [ "error" ],
     "no-new-wrappers": [ "error" ],

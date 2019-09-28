@@ -22,7 +22,16 @@ module.exports = async function onMessageCreate (msg) {
     return;
   }
 
-  for await (const result of command.run(msg, args)) {
-    restClient.createMessage(msg.channel_id, result);
+  try {
+    for await (const result of command.run(msg, args)) {
+      restClient.createMessage(msg.channel_id, result);
+    }
+  } catch (e) {
+    restClient.createMessage(msg.channel_id, {
+      title: 'fucky wucky uwu',
+      color: 0xCA2D36,
+      description: '```\n' + e.stack + '\n```'
+    });
   }
+
 };

@@ -6,13 +6,12 @@ Promise.all([
 ]).then(() => {
   const WSClient = require('@webtoon-bot/ws');
   const handlers = require('@webtoon-bot/handlers');
-  const { reactionCollector } = require('@webtoon-bot/collectors');
   const wsClient = new WSClient();
 
   wsClient
     .on('dispatch:READY', handlers.ready)
     .on('dispatch:MESSAGE_CREATE', handlers.messageCreate)
-    .on('dispatch:MESSAGE_REACTION_ADD', reactionCollector.process.bind(reactionCollector))
+    .on('dispatch:MESSAGE_REACTION_ADD', handlers.messageReactionAdd)
     .build();
 
   process.on('SIGINT', () => {

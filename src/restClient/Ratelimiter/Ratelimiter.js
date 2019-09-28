@@ -3,10 +3,6 @@ const Bucket = require('./Bucket');
 module.exports = class Ratelimiter {
   #buckets = new Map();
 
-  constructor () {
-    process.stdin.on('data', () => console.log(this.#buckets));
-  }
-
   _createOrGetBucket (abstract) {
     if (this.#buckets.has(abstract)) {
       return this.#buckets.get(abstract);

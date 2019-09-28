@@ -23,6 +23,7 @@
   "homepage": "https://github.com/aetheryx/webtoon-bot#readme",
   "dependencies": {
     "himalaya": "^1.1.0",
+    "ioredis": "^4.14.1",
     "lighttp": "^1.2.0",
     "mongodb": "^3.3.0-beta2",
     "ws": "^7.1.1"

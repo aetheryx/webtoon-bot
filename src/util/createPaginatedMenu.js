@@ -1,5 +1,4 @@
 const { reactionCollector } = require('@webtoon-bot/collectors');
-const sleep = require('./sleep');
 let restClient; // lazy loaded because of cyclic dep
 setImmediate(() => (
   restClient = require('@webtoon-bot/restClient')

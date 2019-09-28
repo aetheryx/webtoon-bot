@@ -14,7 +14,7 @@ module.exports = {
     const query = args.join(' ');
     const results = await scraper.search(query);
     if (results.length === 0) {
-      yield 'I was unable to find any comics with that query.';
+      return yield 'I was unable to find any comics with that query.';
     }
 
     createPaginatedMenu({
